@@ -3,7 +3,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const { flights } = require("./test-data/flightSeating");
+
+const {
+  handleFlight,
+  handleAllFlightNums,
+  handleBookings,
+  handleSeeBookings,
+  handleConfirmationPage,
+} = require("./handlers");
 
 express()
   .use(function (req, res, next) {
@@ -20,11 +27,12 @@ express()
   .use(express.urlencoded({ extended: false }))
 
   // endpoints
-  .get("/flights/:flightId", (req, res) => {
-    const flightNumber = req.params.flightId;
-    const currentFlight = flights[flightNumber];
-    res.status(200).send(currentFlight);
-  })
+  .get("/flights/:flightId", handleFlight)
+  .get("/all-flight-numbers", handleAllFlightNums)
+
+  .get("/reservations", handleSeeBookings)
+  .post("/reservations", handleBookings)
+  .get("/reservations/:id", handleConfirmationPage)
 
   .use((req, res) => res.send("Not Found"))
   .listen(8000, () => console.log(`Listening on port 8000`));

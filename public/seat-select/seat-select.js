@@ -7,6 +7,7 @@ let selection = "";
 let selectedFlight = [];
 
 const renderSeats = (seatInfo) => {
+  seatsDiv.innerHTML = "";
   document.querySelector(".form-container").style.display = "block";
 
   const alpha = ["A", "B", "C", "D", "E", "F"];
@@ -51,34 +52,63 @@ const renderSeats = (seatInfo) => {
 };
 
 const toggleFormContent = (event) => {
+  const defaultOption = document.getElementById("defaultOption");
+  defaultOption.disabled = true;
   const flightNumber = flightInput.value;
   console.log("toggleFormContent: ", flightNumber);
-  fetch(`/flights/${flightNumber}`)
-    .then((res) => res.json())
+  fetch("/all-flight-numbers")
+    .then((res) => res.text())
     .then((data) => {
-      renderSeats(data);
+      const allFlights = JSON.parse(data).allFlightNumbers;
+      if (
+        allFlights.find((flight) => {
+          return flight === flightNumber;
+        })
+      ) {
+        fetch(`/flights/${flightNumber}`)
+          .then((res) => res.text())
+          .then((data) => {
+            const parsedData = JSON.parse(data);
+            renderSeats(parsedData.currentFlight);
+          });
+      } else {
+        alert("The Flight # does not exist");
+      }
     });
-
-  // TODO: contact the server to get the seating availability
-  //      - only contact the server if the flight number is this format 'SA###'.
-  //      - Do I need to create an error message if the number is not valid?
-
-  // TODO: Pass the response data to renderSeats to create the appropriate seat-type.
 };
 
 const handleConfirmSeat = (event) => {
   event.preventDefault();
-  // TODO: everything in here!
-  fetch("/users", {
+  fetch("/reservations", {
     method: "POST",
     body: JSON.stringify({
+      flight: document.getElementById("flight").value,
+      seat: selection,
       givenName: document.getElementById("givenName").value,
+      surname: document.getElementById("surname").value,
+      email: document.getElementById("email").value,
     }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href = `/confirmed?id=${data.id}`;
+    });
 };
 
-flightInput.addEventListener("blur", toggleFormContent);
+flightInput.addEventListener("change", toggleFormContent);
+
+fetch("/all-flight-numbers")
+  .then((res) => res.json())
+  .then((data) => {
+    data.allFlightNumbers.forEach((flightId) => {
+      const option = document.createElement("option");
+      option.innerText = flightId;
+      option.value = flightId;
+      flightInput.appendChild(option);
+    });
+  });
