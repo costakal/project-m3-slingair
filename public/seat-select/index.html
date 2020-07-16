@@ -11,12 +11,21 @@
             <header class='header'>
                 <h1 class='header-logo'>Air Slingshot</h1>
             </div>
+        <div class="options-select">
             <div class="flight-select">
-                <label for="flight">Flight Number :</label>
+                <label for="flight"> Choose a Flight :</label>
                 <select name="flight" id="flight" class="flight" placeholder="flight #">
                     <option id="defaultOption">Select Your Flight</option>
                 </select>
             </div>
+            <div class="flight-select">
+                <form id="email-entry" class="email-entry" name="email-entry" >
+                    <label for="check-email">Check an Existing Booking</label>
+                    <input name="check-email" type="text" id="check-email" class="check-email" value="Enter Email" onfocus="this.value=''"> 
+                    <button type="submit" form="email-entry" class="view-res-button">Submit</button>
+                </form>
+            </div>
+        </div>
             <div class="form-container">
                 <h2>Select your seat and Provide your information!</h2>
                 <form id="seats" class="content" name="salesForm" onsubmit="handleConfirmSeat(event)">

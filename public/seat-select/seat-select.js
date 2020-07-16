@@ -1,6 +1,7 @@
 const flightInput = document.getElementById("flight");
 const seatsDiv = document.getElementById("seats-section");
 const confirmButton = document.getElementById("confirm-button");
+const emailInput = document.getElementById("email-entry");
 
 let selection = "";
 
@@ -55,7 +56,6 @@ const toggleFormContent = (event) => {
   const defaultOption = document.getElementById("defaultOption");
   defaultOption.disabled = true;
   const flightNumber = flightInput.value;
-  console.log("toggleFormContent: ", flightNumber);
   fetch("/all-flight-numbers")
     .then((res) => res.text())
     .then((data) => {
@@ -100,7 +100,18 @@ const handleConfirmSeat = (event) => {
     });
 };
 
-flightInput.addEventListener("change", toggleFormContent);
+///////////////////////////////////////////////////////////////////
+const handleConfirmEmail = (event) => {
+  find;
+
+  fetch(`reservations/view-confirmation/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+};
+// try a
+////////////////////////////////////////////////////////////////////////////
 
 fetch("/all-flight-numbers")
   .then((res) => res.json())
@@ -114,3 +125,5 @@ fetch("/all-flight-numbers")
       flightInput.appendChild(option);
     });
   });
+
+flightInput.addEventListener("change", toggleFormContent);

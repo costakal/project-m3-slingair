@@ -10,6 +10,7 @@ const {
   handleBookings,
   handleSeeBookings,
   handleConfirmationPage,
+  handleViewExisistingReservation,
 } = require("./handlers");
 
 express()
@@ -34,5 +35,12 @@ express()
   .post("/reservations", handleBookings)
   .get("/reservations/:id", handleConfirmationPage)
 
+  .get("reservations/view-confirmation/:id", handleViewExisistingReservation)
+
   .use((req, res) => res.send("Not Found"))
   .listen(8000, () => console.log(`Listening on port 8000`));
+
+// find your booking by typing in email.
+// right now the form returns a query paramter... why?
+// brings you to the confirmation page with relevant information (like confirmation page)
+// if the email does not exist in the system, it alerts you, the user doesn't exist.
