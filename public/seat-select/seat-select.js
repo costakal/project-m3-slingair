@@ -107,8 +107,10 @@ fetch("/all-flight-numbers")
   .then((data) => {
     data.allFlightNumbers.forEach((flightId) => {
       const option = document.createElement("option");
+      option.classList.add("flight-option");
       option.innerText = flightId;
       option.value = flightId;
+
       flightInput.appendChild(option);
     });
   });
