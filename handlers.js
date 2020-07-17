@@ -23,18 +23,10 @@ const handleBookings = (req, res) => {
   res.status(201).json(newBooking);
 };
 
-const handleConfirmationPage = (req, res) => {
+const handleViewConfirmation = (req, res) => {
   const id = req.params.id;
   const reservation = reservations.find((reservation) => {
-    return reservation.id === id;
-  });
-  res.status(200).json(reservation);
-};
-
-const handleViewExisistingReservation = (req, res) => {
-  const id = req.params.id;
-  const reservation = reservations.find((reservation) => {
-    return reservation.id === id;
+    return reservation.id === id || reservation.email === id;
   });
   res.status(200).json(reservation);
 };
@@ -44,6 +36,5 @@ module.exports = {
   handleAllFlightNums,
   handleSeeBookings,
   handleBookings,
-  handleConfirmationPage,
-  handleViewExisistingReservation,
+  handleViewConfirmation,
 };

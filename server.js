@@ -9,8 +9,7 @@ const {
   handleAllFlightNums,
   handleBookings,
   handleSeeBookings,
-  handleConfirmationPage,
-  handleViewExisistingReservation,
+  handleViewConfirmation,
 } = require("./handlers");
 
 express()
@@ -33,9 +32,7 @@ express()
 
   .get("/reservations", handleSeeBookings)
   .post("/reservations", handleBookings)
-  .get("/reservations/:id", handleConfirmationPage)
-
-  .get("reservations/view-confirmation/:id", handleViewExisistingReservation)
+  .get("/reservations/:id", handleViewConfirmation)
 
   .use((req, res) => res.send("Not Found"))
   .listen(8000, () => console.log(`Listening on port 8000`));

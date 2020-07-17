@@ -95,23 +95,15 @@ const handleConfirmSeat = (event) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       window.location.href = `/confirmed?id=${data.id}`;
     });
 };
 
-///////////////////////////////////////////////////////////////////
 const handleConfirmEmail = (event) => {
-  find;
-
-  fetch(`reservations/view-confirmation/${id}`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+  event.preventDefault();
+  const email = document.getElementById("check-email").value;
+  window.location.href = `/confirmed?id=${email}`;
 };
-// try a
-////////////////////////////////////////////////////////////////////////////
 
 fetch("/all-flight-numbers")
   .then((res) => res.json())

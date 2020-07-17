@@ -1,2 +1,2 @@
 const url = new URL(window.location);
-const id = url.searchParams.get("id");
+const email = url.searchParams.get("check-email");

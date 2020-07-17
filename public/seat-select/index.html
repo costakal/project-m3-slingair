@@ -19,7 +19,7 @@
                 </select>
             </div>
             <div class="flight-select">
-                <form id="email-entry" class="email-entry" name="email-entry" >
+                <form id="email-entry" class="email-entry" name="email-entry" onsubmit="handleConfirmEmail(event)">
                     <label for="check-email">Check an Existing Booking</label>
                     <input name="check-email" type="text" id="check-email" class="check-email" value="Enter Email" onfocus="this.value=''"> 
                     <button type="submit" form="email-entry" class="view-res-button">Submit</button>
